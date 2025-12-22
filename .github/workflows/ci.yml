@@ -28,7 +28,7 @@ jobs:
         working-directory: ./userService
         run: |
           mvn clean install -DskipTests
-          mvn sonar:sonar \
+          mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.11.0.3922:sonar \
             -Dsonar.projectKey=UserServiceKey \
             -Dsonar.host.url=https://golda-lucent-jolyn.ngrok-free.dev \
             -Dsonar.token=sqa_d1ef9dbf17f5ba822980c245a7336e4db955a4f8

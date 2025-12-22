@@ -1,10 +1,10 @@
-name: CI Eureka Server
+name: CI User Service
 
 on:
   push:
-    branches: [ "main", "master" ]
+    branches: [ "master", "main" ] # Ton terminal indique (master)
   pull_request:
-    branches: [ "main", "master" ]
+    branches: [ "master", "main" ]
 
 jobs:
   build-and-analyze:
@@ -24,10 +24,9 @@ jobs:
           cache: maven
 
       - name: Build and Sonar Analysis
-        # Note : L'URL localhost ne fonctionnera pas sur GitHub Actions.
-        # Tu devras la remplacer par ton URL ngrok si tu veux que ça marche.
-        run: |
-          mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:3.11.0.3922:sonar \
-            "-Dsonar.projectKey=EurekaServer" \
-            "-Dsonar.host.url=http://localhost:9000" \
-            "-Dsonar.token=sqa_d1ef9dbf17f5ba822980c245a7336e4db955a4f8"
+                 - working-directory: ./userService
+                 - run: |
+                 - mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:3.11.0.3922:sonar \
+                 - "-Dsonar.projectKey=UserServiceKey" \
+                 - "-Dsonar.host.url=https://golda-lucent-jolyn.ngrok-free.dev" \
+                 - "-Dsonar.token=sqa_d1ef9dbf17f5ba822980c245a7336e4db955a4f8"

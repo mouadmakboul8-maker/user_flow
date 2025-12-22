@@ -1,0 +1,33 @@
+name: CI Eureka Server
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  build-and-analyze:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build and Sonar Analysis
+        # Note : L'URL localhost ne fonctionnera pas sur GitHub Actions.
+        # Tu devras la remplacer par ton URL ngrok si tu veux que ça marche.
+        run: |
+          mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:3.11.0.3922:sonar \
+            "-Dsonar.projectKey=EurekaServer" \
+            "-Dsonar.host.url=http://localhost:9000" \
+            "-Dsonar.token=sqa_d1ef9dbf17f5ba822980c245a7336e4db955a4f8"
